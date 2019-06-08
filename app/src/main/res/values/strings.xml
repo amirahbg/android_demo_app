@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">BoltalP1</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="label_login">login</string>
+    <string name="label_sign_up">Don\'t have an account, Sign Up!</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="label_register">Register</string>
+    <string name="label_have_account">Already Have an account, Login!</string>
+    <string name="err_empty_field">this field can\'t be empty</string>
+    <string name="err_wrong_username_or_password">Username or password is wrong</string>
+    <string name="err_repeated_username">Username is already taken. Please Choose another username</string>
+    <string name="title_logout">Logout</string>
+    <string name="err_no_adv_found">No Advertise found in the database</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_body">Description</string>
+    <string name="hint_price">Price</string>
+    <string name="hint_choose_img">Choose Image</string>
+    <string name="hint_choose_video">Choose Video</string>
+    <string name="permission_read_external_storage">Read from external storage is needed</string>
+    <string name="err_image_url">No Image has been chosen</string>
+
+    <string-array name="roles">
+        <item>Admin</item>
+        <item>User</item>
+        <item>Visitor</item>
+    </string-array>
+</resources>

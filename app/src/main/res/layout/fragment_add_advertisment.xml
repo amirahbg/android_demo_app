@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".view.add_advertisement.AddAdvertisementFragment">
+
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias=".2"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent=".9" />
+
+            <EditText
+                android:id="@+id/etPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_price"
+                app:layout_constraintEnd_toEndOf="@id/etTitle"
+                app:layout_constraintStart_toStartOf="@id/etTitle"
+                app:layout_constraintTop_toBottomOf="@id/etTitle" />
+
+            <EditText
+                android:id="@+id/etBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_body"
+                android:inputType="textLongMessage"
+                android:minLines="3"
+                app:layout_constraintEnd_toEndOf="@id/etTitle"
+                app:layout_constraintStart_toStartOf="@id/etTitle"
+                app:layout_constraintTop_toBottomOf="@id/etPrice" />
+
+
+            <LinearLayout
+                android:id="@+id/llVideo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/etTitle"
+                app:layout_constraintStart_toStartOf="@id/etTitle"
+                app:layout_constraintTop_toBottomOf="@id/etBody">
+
+                <TextView
+                    android:id="@+id/tvVideoPath"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".8"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:text="@string/hint_choose_video" />
+
+                <ImageView
+                    android:id="@+id/ivAddVideo"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/ic_add_black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/etTitle"
+                app:layout_constraintStart_toStartOf="@id/etTitle"
+                app:layout_constraintTop_toBottomOf="@id/llVideo">
+
+                <TextView
+                    android:id="@+id/tvImagePath"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".8"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:text="@string/hint_choose_img" />
+
+                <ImageView
+                    android:id="@+id/ivAddImg"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/ic_add_black" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivMap"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/llImage"
+                app:layout_constraintWidth_percent=".1" />
+
+            <Button
+                android:id="@+id/btnSaved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivMap" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

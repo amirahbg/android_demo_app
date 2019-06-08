@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/advertismentFragment">
+
+    <fragment
+        android:id="@+id/advertismentFragment"
+        android:name="com.example.boltalp1.view.advertisement.AdvertisementFragment"
+        android:label="fragment_advertisment"
+        tools:layout="@layout/fragment_advertisment" >
+        <action
+            android:id="@+id/action_advertismentFragment_to_advertismentDetailFragment"
+            app:destination="@id/advertismentDetailFragment" />
+        <action
+            android:id="@+id/action_advertismentFragment_to_addAdvertismentFragment"
+            app:destination="@id/addAdvertismentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAdvertismentFragment"
+        android:name="com.example.boltalp1.view.add_advertisement.AddAdvertisementFragment"
+        android:label="fragment_add_advertisment"
+        tools:layout="@layout/fragment_add_advertisment" />
+    <fragment
+        android:id="@+id/advertismentDetailFragment"
+        android:name="com.example.boltalp1.AdvertismentDetailFragment"
+        android:label="fragment_advertisment_detail"
+        tools:layout="@layout/fragment_advertisment_detail" />
+</navigation>
