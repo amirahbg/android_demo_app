@@ -23,6 +23,11 @@
     <string name="hint_choose_video">Choose Video</string>
     <string name="permission_read_external_storage">Read from external storage is needed</string>
     <string name="err_image_url">No Image has been chosen</string>
+    <string name="label_contact_us">Contact us</string>
+    <string name="label_title">Title</string>
+    <string name="label_price">Price</string>
+    <string name="label_description">Description</string>
+    <string name="err_not_conf">Not Confirmed</string>
 
     <string-array name="roles">
         <item>Admin</item>

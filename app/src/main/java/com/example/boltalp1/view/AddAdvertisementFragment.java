@@ -1,23 +1,12 @@
-package com.example.boltalp1.view.add_advertisement;
+package com.example.boltalp1.view;
 
 
 import android.Manifest;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import pub.devrel.easypermissions.EasyPermissions;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +18,15 @@ import com.example.boltalp1.databinding.FragmentAddAdvertismentBinding;
 import com.example.boltalp1.viewmodel.AddAdvertisementViewModel;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -42,7 +40,6 @@ public class AddAdvertisementFragment extends Fragment
     public static final int PICK_VIDEO_RESULT_CODE = 2;
     private static final int EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 100;
 
-    private boolean mReadExStorage;
     private FragmentAddAdvertismentBinding mBinding;
     private AddAdvertisementViewModel mAddAdvertisementViewModel;
 
@@ -163,8 +160,6 @@ public class AddAdvertisementFragment extends Fragment
                     if (fileUri != null) {
                         mBinding.tvImagePath.setText(fileUri.getPath());
                         mUri = fileUri;
-                        // FIXME: 6/8/19 result of method is null
-                        String s = getRealPathFromUri(getContext(), fileUri);
                     }
                     break;
                 case PICK_VIDEO_RESULT_CODE:

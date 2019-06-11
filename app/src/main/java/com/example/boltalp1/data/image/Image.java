@@ -25,24 +25,16 @@ public class Image {
     @ColumnInfo(name = "advertisementId")
     private long mAdvertisementId;
 
-    @ColumnInfo(name = "ssp")
-    private String mSsp;
-
-    @ColumnInfo(name = "fragment")
-    private String mFragment;
-
-    @ColumnInfo(name = "scheme")
-    private String mScheme;
+    @ColumnInfo(name = "imagePath")
+    private String mImagePath;
 
     @ColumnInfo(name = "updateDate")
     private Date mUpdateDate;
 
 
-    public Image(long advertisementId, String ssp, String fragment, String scheme, Date updateDate) {
+    public Image(long advertisementId, String imagePath, Date updateDate) {
         mAdvertisementId = advertisementId;
-        mSsp = ssp;
-        mFragment = fragment;
-        mScheme = scheme;
+        mImagePath = imagePath;
         mUpdateDate = updateDate;
     }
 
@@ -63,12 +55,12 @@ public class Image {
         mAdvertisementId = advertisementId;
     }
 
-    public String getSsp() {
-        return mSsp;
+    public String getImagePath() {
+        return mImagePath;
     }
 
-    public void setSsp(String ssp) {
-        mSsp = ssp;
+    public void setImagePath(String imagePath) {
+        mImagePath = imagePath;
     }
 
     public long getId() {
@@ -77,21 +69,5 @@ public class Image {
 
     public void setId(long id) {
         mId = id;
-    }
-
-    public String getScheme() {
-        return mScheme;
-    }
-
-    public void setScheme(String scheme) {
-        mScheme = scheme;
-    }
-
-    public String getFragment() {
-        return mFragment;
-    }
-
-    public void setFragment(String fragment) {
-        mFragment = fragment;
     }
 }

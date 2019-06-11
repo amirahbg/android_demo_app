@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.boltalp1.view.login.LoginFragment"
+        android:name="com.example.boltalp1.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.boltalp1.view.register.RegisterFragment"
+        android:name="com.example.boltalp1.view.RegisterFragment"
         android:label="fragment_register"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"

@@ -16,4 +16,6 @@ public interface AdvertisementDS {
     Flowable<List<Advertisement>> getAllAdvertisements();
 
     Flowable<List<AdvertisementWithImage>> getAddAdvertisementWithImages();
+
+    Flowable<Integer> updateAdvertisement(Advertisement advertisement);
 }

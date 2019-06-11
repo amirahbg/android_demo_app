@@ -73,6 +73,7 @@ public class Advertisement {
 
     public void setConfDate(Date confDate) {
         mConfDate = confDate;
+
     }
 
     public void setId(long id) {

@@ -88,5 +88,40 @@ public class AdvertisementTest {
                 .dispose();
     }
 
+    @Test
+    public void testUpdate() {
+        Advertisement advertisement = new Advertisement(mUser.getId(), "title", "url",
+                1, 1, "body", new Date(0), 2000);
+        mAdvertisementDao.insertAdv(advertisement)
+                .subscribeOn(Schedulers.trampoline())
+                .test()
+                .assertSubscribed()
+                .assertComplete()
+                .assertValue(l -> l == 1)
+                .assertNoErrors()
+                .dispose();
+
+        advertisement.setId(1);
+
+        Date date = Calendar.getInstance().getTime();
+        advertisement.setConfDate(date);
+        mAdvertisementDao.updateAdvertisement(advertisement)
+                .subscribeOn(Schedulers.trampoline())
+                .test()
+                .assertComplete()
+                .assertNoErrors()
+                .assertSubscribed()
+                .assertValue(r -> r == 1)
+                .dispose();
+
+        mAdvertisementDao.getUsersAdvertisement(mUser.getId())
+                .subscribeOn(Schedulers.trampoline())
+                .test()
+                .assertComplete()
+                .assertNoErrors()
+                .assertSubscribed()
+                .assertValue(r -> r.size() == 1 && r.get(0).getConfDate().equals(date))
+                .dispose();
+    }
 
 }

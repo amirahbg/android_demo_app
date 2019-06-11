@@ -1,8 +1,17 @@
-package com.example.boltalp1.view.advertisement;
+package com.example.boltalp1.view;
 
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.boltalp1.R;
+import com.example.boltalp1.adapter.AdvertisementAdapter;
+import com.example.boltalp1.databinding.FragmentAdvertismentBinding;
+import com.example.boltalp1.viewmodel.AdvertisementsViewModel;
+import com.example.boltalp1.viewmodel.SharedAdvertisementViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,16 +22,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.boltalp1.R;
-import com.example.boltalp1.adapter.AdvertisementAdapter;
-import com.example.boltalp1.databinding.FragmentAdvertismentBinding;
-import com.example.boltalp1.viewmodel.AdvertisementItemViewModel;
-import com.example.boltalp1.viewmodel.AdvertisementsViewModel;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +29,7 @@ import com.example.boltalp1.viewmodel.AdvertisementsViewModel;
 public class AdvertisementFragment extends Fragment {
     private FragmentAdvertismentBinding mBinding;
     private AdvertisementsViewModel mAdvertisementsViewModel;
+    private SharedAdvertisementViewModel mSharedAdvertisementViewModel;
     private AdvertisementAdapter mAdapter;
     private NavController mNavController;
 
@@ -50,11 +50,27 @@ public class AdvertisementFragment extends Fragment {
             mAdvertisementsViewModel = ViewModelProviders.of(this)
                     .get(AdvertisementsViewModel.class);
 
+            if (isAdded()) {
+                mSharedAdvertisementViewModel = ViewModelProviders.of(getActivity())
+                        .get(SharedAdvertisementViewModel.class);
+            }
+
             mBinding.setViewModel(mAdvertisementsViewModel);
             mBinding.setLifecycleOwner(this);
 
             mBinding.rvAdvertises.setLayoutManager(new LinearLayoutManager(getContext()));
-            mAdapter = new AdvertisementAdapter();
+
+            // TODO: 6/10/19 consider better option for clicking item
+            mAdapter = new AdvertisementAdapter(mAdvertisementsViewModel.getApplication(),
+                    mAdvertisementsViewModel.isAdmin(),
+                    viewModel -> {
+                        if (mNavController.getCurrentDestination() != null &&
+                                mNavController.getCurrentDestination().getId() == R.id.advertismentFragment) {
+                            mSharedAdvertisementViewModel.selectItem(viewModel);
+                            mNavController.navigate(R.id.action_advertismentFragment_to_advertismentDetailFragment);
+                        }
+                    });
+
             mBinding.rvAdvertises.setAdapter(mAdapter);
         }
 

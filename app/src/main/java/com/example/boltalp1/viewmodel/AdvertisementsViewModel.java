@@ -5,9 +5,12 @@ import android.app.Application;
 import com.example.boltalp1.R;
 import com.example.boltalp1.data.advertisement.AdvertisementWithImage;
 import com.example.boltalp1.data.advertisement.source.AdvertisementRepo;
+import com.example.boltalp1.data.user.source.UserRepo;
 import com.example.boltalp1.util.Injection;
 import com.example.boltalp1.util.ObservableViewModel;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -20,6 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class AdvertisementsViewModel extends ObservableViewModel {
     private AdvertisementRepo mAdvertisementRepo;
+    private UserRepo mUserRepo;
     private MutableLiveData<List<AdvertisementWithImage>> mAdvertisementsLive;
     private MutableLiveData<String> mMessageLive;
 
@@ -28,6 +32,7 @@ public class AdvertisementsViewModel extends ObservableViewModel {
 
         mAdvertisementRepo = Injection.provideAdvertisementRepo(application);
         mAdvertisementsLive = new MutableLiveData<>();
+        mUserRepo = Injection.provideUserRepo(getApplication());
         mMessageLive = new MutableLiveData<>();
     }
 
@@ -40,13 +45,32 @@ public class AdvertisementsViewModel extends ObservableViewModel {
                                 setMessage(getApplication().getString(R.string.err_no_adv_found));
                                 return;
                             }
-                            mAdvertisementsLive.setValue(advertisements);
+                            if (mUserRepo.getCurrentRole().equals("Admin")) {
+                                mAdvertisementsLive.setValue(advertisements);
+                            } else {
+                                mAdvertisementsLive.setValue(extractConfAdv(advertisements));
+                            }
                         },
                         e -> {
                             if (e instanceof EmptyResultSetException) {
                                 setMessage(getApplication().getString(R.string.err_no_adv_found));
                             }
                         }));
+    }
+
+    private List<AdvertisementWithImage> extractConfAdv(List<AdvertisementWithImage> advertisements) {
+        List<AdvertisementWithImage> res = new ArrayList<>();
+        for (int i = 0; i < advertisements.size(); i++) {
+            Date date = advertisements.get(i).mAdvertisement.getConfDate();
+            if (date == null || date.equals(new Date(0)))
+                continue;
+            res.add(advertisements.get(i));
+        }
+        return res;
+    }
+
+    public boolean isAdmin() {
+        return mUserRepo.getCurrentRole().equals("Admin");
     }
 
     public void setMessage(String s) {

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/advertismentFragment"
-        android:name="com.example.boltalp1.view.advertisement.AdvertisementFragment"
+        android:name="com.example.boltalp1.view.AdvertisementFragment"
         android:label="fragment_advertisment"
         tools:layout="@layout/fragment_advertisment" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/addAdvertismentFragment"
-        android:name="com.example.boltalp1.view.add_advertisement.AddAdvertisementFragment"
+        android:name="com.example.boltalp1.view.AddAdvertisementFragment"
         android:label="fragment_add_advertisment"
         tools:layout="@layout/fragment_add_advertisment" />
     <fragment
         android:id="@+id/advertismentDetailFragment"
-        android:name="com.example.boltalp1.AdvertismentDetailFragment"
+        android:name="com.example.boltalp1.view.AdvertisementDetailFragment"
         android:label="fragment_advertisment_detail"
         tools:layout="@layout/fragment_advertisment_detail" />
 </navigation>

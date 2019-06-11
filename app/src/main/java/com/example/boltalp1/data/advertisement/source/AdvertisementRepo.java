@@ -52,4 +52,10 @@ public class AdvertisementRepo implements AdvertisementDS {
         return mAdvertiseWithImagesDao.getAdvWithImages()
                 .toFlowable();
     }
+
+    @Override
+    public Flowable<Integer> updateAdvertisement(Advertisement advertisement) {
+        return mAdvertisementDao.updateAdvertisement(advertisement)
+                .toFlowable();
+    }
 }

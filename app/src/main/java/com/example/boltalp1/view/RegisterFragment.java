@@ -1,4 +1,4 @@
-package com.example.boltalp1.view.login;
+package com.example.boltalp1.view;
 
 
 import android.content.Context;
@@ -19,26 +19,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
-import android.widget.QuickContactBadge;
 
 import com.example.boltalp1.R;
-import com.example.boltalp1.databinding.FragmentLoginBinding;
+import com.example.boltalp1.databinding.FragmentRegisterBinding;
 import com.example.boltalp1.view.OnStartMainActivity;
-import com.example.boltalp1.viewmodel.LoginViewModel;
+import com.example.boltalp1.viewmodel.RegisterViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginFragment extends Fragment {
-    private FragmentLoginBinding mBinding;
-    private String mCurrentRole;
+public class RegisterFragment extends Fragment {
+    private FragmentRegisterBinding mBinding;
+    private RegisterViewModel mRegisterViewModel;
     private NavController mNavController;
-    private LoginViewModel mLoginViewModel;
     private OnStartMainActivity mOnStartMainActivity;
+    private String mCurrentRole;
 
-    public LoginFragment() {
+    public RegisterFragment() {
         // Required empty public constructor
     }
 
@@ -47,49 +46,41 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
+        // Inflate the layout for this fragment
         if (mBinding == null) {
-            mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login,
+            mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register,
                     container, false);
-            mLoginViewModel = ViewModelProviders.of(this)
-                    .get(LoginViewModel.class);
-            mBinding.setViewModel(mLoginViewModel);
             mBinding.setLifecycleOwner(this);
         }
 
-        setupSpinner();
-
-        mLoginViewModel.requestIsLoggedIn();
-        mLoginViewModel.setWaitingProgress(true);
-
-        mLoginViewModel.getIsLoggedIn().observe(this,
-                b -> {
-                    if (b != null && b) {
-                        mOnStartMainActivity.startMainActivity();
-                    } else {
-                        mLoginViewModel.setWaitingProgress(false);
-                    }
-                });
-
-        mLoginViewModel.getIsSuccessfulLogin().observe(this,
-                b -> {
-                    if (b != null && b) {
-                        mOnStartMainActivity.startMainActivity();
-                    }
-                });
-
-        mBinding.tvRegister.setOnClickListener(v -> {
-            if (mNavController.getCurrentDestination() != null
-                    && mNavController.getCurrentDestination().getId() == R.id.loginFragment) {
-                mNavController.navigate(R.id.action_loginFragment_to_registerFragment);
+        mBinding.tvLogin.setOnClickListener(v -> {
+            if (mNavController.getCurrentDestination() != null &&
+                    mNavController.getCurrentDestination().getId() == R.id.registerFragment) {
+                mNavController.navigateUp();
             }
         });
 
-        mBinding.btnLogin.setOnClickListener(v -> {
+        mRegisterViewModel = ViewModelProviders.of(this)
+                .get(RegisterViewModel.class);
+        mBinding.setViewmodel(mRegisterViewModel);
+
+        mRegisterViewModel.getIsSuccessfulRegister().observe(this,
+                isSuccessful -> {
+                    if (isSuccessful != null && isSuccessful) {
+                        mOnStartMainActivity.startMainActivity();
+                    }
+                });
+
+        setupSpinner();
+
+        mBinding.btnRegister.setOnClickListener(v -> {
             if (validateInput()) {
-                mLoginViewModel.requestLogin(mBinding.etUsername.getText().toString(),
+                mRegisterViewModel.requestRegisterUser(mBinding.etUsername.getText().toString(),
                         mBinding.etPassword.getText().toString(),
+                        mBinding.etEmail.getText().toString(),
+                        mBinding.etPhoneNumber.getText().toString(),
                         mCurrentRole);
+                mRegisterViewModel.setWaitingProgress(true);
             }
         });
 
@@ -102,11 +93,22 @@ public class LoginFragment extends Fragment {
             mBinding.etUsername.setError(getString(R.string.err_empty_field));
             valid = false;
         }
-        if (mBinding.etPassword.getText().toString().equals("")) {
+        if (mCurrentRole.equals("")) {
             mBinding.etPassword.setError(getString(R.string.err_empty_field));
             valid = false;
         }
+
         return valid;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mNavController = NavHostFragment.findNavController(this);
+
+
+        // host activity must implement @{OnStartMainActivity}
+        mOnStartMainActivity = (OnStartMainActivity) context;
     }
 
     private void setupSpinner() {
@@ -130,13 +132,5 @@ public class LoginFragment extends Fragment {
                 }
             });
         }
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mNavController = NavHostFragment.findNavController(this);
-
-        mOnStartMainActivity = (OnStartMainActivity) context;
     }
 }

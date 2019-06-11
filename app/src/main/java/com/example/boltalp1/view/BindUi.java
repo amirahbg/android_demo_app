@@ -1,12 +1,13 @@
-package com.example.boltalp1.view.binding_adapter;
+package com.example.boltalp1.view;
 
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.boltalp1.R;
 import com.example.boltalp1.util.SetDataInterface;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -15,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BindUi {
     @BindingAdapter("android:visibility")
-    public static void progressDialogVisibility(ProgressBar progressBar, boolean b) {
+    public static void progressDialogVisibility(View view, boolean b) {
         if (b) {
-            progressBar.setVisibility(View.VISIBLE);
+            view.setVisibility(View.VISIBLE);
         } else {
-            progressBar.setVisibility(View.GONE);
+            view.setVisibility(View.GONE);
         }
     }
 
@@ -42,10 +43,18 @@ public class BindUi {
         }
     }
 
+//    @InverseBindingAdapter(attribute = "android:visibility")
+//    public static boolean isChecked(CheckBox checkBox) {
+//        return checkBox.isChecked();
+//    }
+
     @BindingAdapter("android:text")
     public static void setDate(TextView textView, Date date) {
-        if (date != null) {
-            textView.setText(date.toString());
+        if (date != null && !date.equals(new Date(0))) {
+            SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy");
+            textView.setText(format.format(date));
+        } else {
+            textView.setText(textView.getContext().getString(R.string.err_not_conf));
         }
     }
 }

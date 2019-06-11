@@ -12,6 +12,7 @@ import com.example.boltalp1.util.Injection;
 import com.example.boltalp1.util.ObservableViewModel;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -43,10 +44,10 @@ public class AddAdvertisementViewModel extends ObservableViewModel {
         advertisement.setBody(body);
         advertisement.setPrice(Integer.parseInt(price));
         advertisement.setVideoUrl(videoPath);
-        advertisement.setConfDate(Calendar.getInstance().getTime());
+        advertisement.setConfDate(new Date(0));
         getCompositeDisposable().add(mAdvertisementRepo.insertAdvertisement(advertisement)
                 .flatMap(l -> mImageRepo.insertImage(
-                        new Image(l, uri.getSchemeSpecificPart(), uri.getFragment(), uri.getScheme(),
+                        new Image(l, uri.getPath(),
                                 Calendar.getInstance().getTime())))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

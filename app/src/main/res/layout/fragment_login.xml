@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:message="@{viewModel.messageLive}"
-        tools:context=".view.login.LoginFragment">
+        tools:context=".view.LoginFragment">
 
         <EditText
             android:id="@+id/etUsername"

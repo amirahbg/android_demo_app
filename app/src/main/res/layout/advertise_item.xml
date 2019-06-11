@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.boltalp1.viewmodel.AdvertisementItemViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -22,6 +22,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="8dp"
+                android:src="@drawable/ic_placeholder"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +30,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent=".36" />
+                app:layout_constraintWidth_percent=".2" />
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -38,7 +39,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@{viewModel.title}"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cbConfirmed"
                 app:layout_constraintHorizontal_bias=".9"
                 app:layout_constraintStart_toEndOf="@id/ivAdvertise"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,22 +50,22 @@
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.confDate}"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/ivAdvertise"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cbConfirmed"
                 app:layout_constraintHorizontal_bias=".9"
-                app:layout_constraintStart_toEndOf="@id/ivAdvertise" />
+                app:layout_constraintStart_toEndOf="@id/ivAdvertise"
+                app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(viewModel.price)}"
+                android:text="@{viewModel.price}"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@id/tvTime"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cbConfirmed"
                 app:layout_constraintHorizontal_bias=".9"
-                app:layout_constraintStart_toEndOf="@id/ivAdvertise" />
+                app:layout_constraintStart_toEndOf="@id/ivAdvertise"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
             <View
                 android:id="@+id/line"
@@ -77,6 +78,17 @@
                 app:layout_constraintTop_toBottomOf="@id/ivAdvertise"
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintWidth_percent=".9" />
+
+            <CheckBox
+                android:id="@+id/cbConfirmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:checked="@={viewModel.checked}"
+                android:visibility="@{viewModel.admin}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
